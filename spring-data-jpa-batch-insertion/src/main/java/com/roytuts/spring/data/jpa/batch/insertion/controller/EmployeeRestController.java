@@ -12,13 +12,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.roytuts.spring.data.jpa.batch.insertion.entity.Employee;
 import com.roytuts.spring.data.jpa.batch.insertion.service.EmployeeService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
+@Api(value = "컨트롤러", description = "")
 public class EmployeeRestController {
 
 	@Autowired
 	private EmployeeService employeeService;
 
 	@PostMapping("/employees/save")
+	@ApiOperation(value = "벌크 삽입", notes = "벌크 삽입.")
 	public ResponseEntity<Void> saveEmployees(@RequestBody List<Employee> employees) {
 		employeeService.saveEmployees(employees);
 		return new ResponseEntity<Void>(HttpStatus.OK);
