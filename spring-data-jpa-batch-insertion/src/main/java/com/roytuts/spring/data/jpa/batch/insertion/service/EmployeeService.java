@@ -8,7 +8,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StopWatch;
 
 import com.roytuts.spring.data.jpa.batch.insertion.entity.Employee;
 import com.roytuts.spring.data.jpa.batch.insertion.repository.EmployeeRepository;
@@ -48,14 +47,11 @@ public class EmployeeService {
         AtomicLong count = new AtomicLong();
         while (count.get() < 10000L) {
             temp.add(Employee.builder().id(count.get()).name(UUID.randomUUID().toString().substring(0, 10)).build());
-
+//            employeeRepository.save(Employee.builder().id(count.get()).name(UUID.randomUUID().toString().substring(0, 10)).build());
             count.incrementAndGet();
         }
-        var stopWatch = new StopWatch();
-        stopWatch.start();
+
         var result = employeeRepository.saveAll(temp);
-        stopWatch.stop();
-        log.debug("@@ result : {}", result.size());
-        log.debug("@@ stopWatch : {}", stopWatch.getTotalTimeSeconds());
+//        log.debug("@@ result : {}", result.size());
     }
 }
