@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.data.domain.Persistable;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,10 +20,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Employee implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
+public class Employee implements Persistable {
     @Id
     @Column(name = "id")
 //	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,4 +28,14 @@ public class Employee implements Serializable {
 
     @Column(name = "name")
     private String name;
+
+    @Override
+    public Object getId() {
+        return this.id;
+    }
+
+    @Override
+    public boolean isNew() {
+        return true;
+    }
 }
