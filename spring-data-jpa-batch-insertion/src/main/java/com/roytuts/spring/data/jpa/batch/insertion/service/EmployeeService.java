@@ -2,6 +2,8 @@ package com.roytuts.spring.data.jpa.batch.insertion.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,26 +15,38 @@ import com.roytuts.spring.data.jpa.batch.insertion.repository.EmployeeRepository
 @Service
 public class EmployeeService {
 
-	@Autowired
-	private EmployeeRepository employeeRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
-	@Transactional
-	public void saveEmployees(List<Employee> employees) {
-		int size = employees.size();
-		int counter = 0;
+    @Transactional
+    public void saveEmployees(List<Employee> employees) {
+        int size = employees.size();
+        int counter = 0;
 
-		List<Employee> temp = new ArrayList<>();
+        List<Employee> temp = new ArrayList<>();
 
-		for (Employee emp : employees) {
-			temp.add(emp);
+        for (Employee emp : employees) {
+            temp.add(emp);
 
-			if ((counter + 1) % 500 == 0 || (counter + 1) == size) {
-				employeeRepository.saveAll(temp);
-				temp.clear();
-			}
+            if ((counter + 1) % 10 == 0 || (counter + 1) == size) {
+                employeeRepository.saveAll(temp);
+                temp.clear();
+            }
 
-			counter++;
-		}
-	}
+            counter++;
+        }
+    }
 
+    @Transactional
+    public void test() {
+        List<Employee> temp = new ArrayList<>();
+
+        AtomicLong count = new AtomicLong();
+        while (count.get() < 1000L) {
+            temp.add(Employee.builder().id(count.get()).name(UUID.randomUUID().toString().substring(0, 10)).build());
+
+            count.incrementAndGet();
+        }
+        employeeRepository.saveAll(temp);
+    }
 }

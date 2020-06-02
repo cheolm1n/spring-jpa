@@ -29,4 +29,11 @@ public class EmployeeRestController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
+	@PostMapping("/employees/test")
+	@ApiOperation(value = "벌크 삽입 테스트 파라미터 없이", notes = "벌크 삽입.")
+	public ResponseEntity<Void> test() {
+		employeeService.test();
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+
 }

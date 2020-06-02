@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+  <!-- 아래 로거들은 추후에 필요성이 생기면 다시 추가 -->
+  <!--<logger name="com.amazonaws.request" level="DEBUG">-->
+  <!--</logger>-->
+
+  <!--<logger name="com.zaxxer.hikari.pool.HikariPool" level="DEBUG">-->
+  <!--</logger>-->
+
+  <!--<logger name="org.hibernate.SQL" level="DEBUG">-->
+  <!--</logger>-->
+
+  <!--<logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE">-->
+  <!--</logger>-->
+</included>

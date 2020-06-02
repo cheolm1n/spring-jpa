@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+  <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+  <property name="LOG_PATH" value="./logs/"/>
+  <property name="PROFILE" value="default"/>
+  <include resource="logging/appenders.xml"/>
+  <include resource="logging/loggers.xml"/>
+
+  <root level="DEBUG">
+    <appender-ref ref="consoleAppender"/>
+  </root>
+
+</included>
